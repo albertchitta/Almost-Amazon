@@ -1,6 +1,8 @@
+import clearDom from '../../helpers/data/clearDom';
+
 const addAuthorForm = (obj = {}) => {
-  document.querySelector('#store').innerHTML = '';
-  document.querySelector('#add-button').innerHTML = '';
+  clearDom();
+
   document.querySelector('#form-container').innerHTML = `
     <form id="submit-author-form" class="mb-4">
       <div class="form-group">
@@ -10,6 +12,14 @@ const addAuthorForm = (obj = {}) => {
       <div class="form-group">
         <label for="last_name">Last Name</label>
         <input type="text" class="form-control" id="last_name" placeholder="Last Name" value="${obj.last_name || ''}" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" placeholder="Author Description" id="description" style="height: 100px">${obj.description || ''}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="url" class="form-control" id="image" placeholder="Image URL" value="${obj.image || ''}" required>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
