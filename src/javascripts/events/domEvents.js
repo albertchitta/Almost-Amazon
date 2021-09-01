@@ -6,7 +6,7 @@ import {
   createBook,
   deleteBook,
   getSingleBook,
-  updateBook
+  updateBook,
 } from '../helpers/data/bookData';
 import {
   createAuthor,
@@ -16,6 +16,7 @@ import {
 import viewBook from '../components/viewBook';
 import viewAuthor from '../components/viewAuthor';
 import { deleteAuthorBooks, viewAuthorDetails, viewBookDetails } from '../helpers/data/mergedData';
+import addReviewForm from '../components/forms/addReviewForm';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -39,6 +40,8 @@ const domEvents = () => {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
         price: document.querySelector('#price').value,
+        headline: '',
+        review: '',
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value
@@ -61,6 +64,8 @@ const domEvents = () => {
         title: document.querySelector('#title').value,
         image: document.querySelector('#image').value,
         price: document.querySelector('#price').value,
+        headline: '',
+        review: '',
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value,
@@ -74,6 +79,25 @@ const domEvents = () => {
     if (e.target.id.includes('view-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
       viewBookDetails(firebaseKey).then(viewBook);
+    }
+
+    // ADD CLICK EVENT FOR REVIEWING A BOOK
+    if (e.target.id.includes('add-review-btn')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      getSingleBook(firebaseKey).then((bookObj) => addReviewForm(bookObj));
+    }
+
+    // CLICK EVENT FOR SUBMITTING FORM FOR REVIEWING A BOOK
+    if (e.target.id.includes('submit-review')) {
+      e.preventDefault();
+      const [, firebaseKey] = e.target.id.split('--');
+      const bookObject = {
+        headline: document.querySelector('#headline').value,
+        review: document.querySelector('#review').value,
+        firebaseKey
+      };
+
+      updateBook(bookObject).then(showBooks);
     }
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
