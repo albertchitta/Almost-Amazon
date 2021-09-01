@@ -1,5 +1,5 @@
-import { getSingleAuthor } from './authorData';
-import { booksByAuthor, getSingleBook } from './bookData';
+import { deleteAuthor, getSingleAuthor } from './authorData';
+import { booksByAuthor, deleteBook, getSingleBook } from './bookData';
 
 // ALSO WORKS
 // const viewBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -12,6 +12,7 @@ import { booksByAuthor, getSingleBook } from './bookData';
 //     }).catch(reject);
 // });
 
+// VIEW BOOK DETAILS
 const viewBookDetails = (firebaseKey) => (async () => {
   const book = await getSingleBook(firebaseKey);
   const author = await getSingleAuthor(book.author_id);
@@ -29,10 +30,20 @@ const viewBookDetails = (firebaseKey) => (async () => {
 //     }).catch(reject);
 // });
 
-const viewAuthorDetails = (firebaseKey) => (async () => {
+// VIEW AUTHOR DETAILS
+const viewAuthorDetails = async (firebaseKey) => {
   const author = await getSingleAuthor(firebaseKey);
   const book = await booksByAuthor(firebaseKey);
   return ({ book, ...author });
-})().catch(console.warn);
+}; // Don't need '.catch'
 
-export { viewBookDetails, viewAuthorDetails };
+// DELETE AUTHOR BOOKS THEN AUTHOR
+const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
+  booksByAuthor(authorId).then((authorsBookArray) => {
+    const deleteBooks = authorsBookArray.map(((book) => deleteBook(book.firebaseKey)));
+
+    Promise.all(deleteBooks).then(() => resolve(deleteAuthor(authorId)));
+  }).catch(reject);
+});
+
+export { viewBookDetails, viewAuthorDetails, deleteAuthorBooks };

@@ -10,13 +10,12 @@ import {
 } from '../helpers/data/bookData';
 import {
   createAuthor,
-  deleteAuthor,
   getSingleAuthor,
   updateAuthor
 } from '../helpers/data/authorData';
 import viewBook from '../components/viewBook';
 import viewAuthor from '../components/viewAuthor';
-import { viewAuthorDetails, viewBookDetails } from '../helpers/data/mergedData';
+import { deleteAuthorBooks, viewAuthorDetails, viewBookDetails } from '../helpers/data/mergedData';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -80,8 +79,8 @@ const domEvents = () => {
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author')) {
       if (window.confirm('Want to delete?')) {
-        const [, id] = e.target.id.split('--');
-        deleteAuthor(id).then(showAuthors);
+        const [, firebaseKey] = e.target.id.split('--');
+        deleteAuthorBooks(firebaseKey).then(showAuthors);
       }
     }
 
