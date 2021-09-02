@@ -20,7 +20,7 @@ const viewAuthor = (obj) => {
       </div>
     </div>`;
 
-  obj.book.forEach((item) => {
+  obj.books.forEach((item) => {
     document.querySelector('#author-books').innerHTML += `
       <div class="card">
         <img class="card-img-top" src=${item.image} alt=${item.title} style="height: 400px;">

@@ -15,19 +15,18 @@ import {
 } from '../helpers/data/authorData';
 import viewBook from '../components/viewBook';
 import viewAuthor from '../components/viewAuthor';
-import { deleteAuthorBooks, viewAuthorDetails, viewBookDetails } from '../helpers/data/mergedData';
+import {
+  deleteAuthorBooks,
+  viewAuthorDetails,
+  viewBookDetails,
+  // viewBookReviews,
+} from '../helpers/data/mergedData';
 import addReviewForm from '../components/forms/addReviewForm';
+import { createReview } from '../helpers/data/reviewData';
+import { showReviews } from '../components/reviews';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
-    // CLICK EVENT FOR DELETING A BOOK
-    if (e.target.id.includes('delete-book')) {
-      if (window.confirm('Want to delete?')) {
-        const [, id] = e.target.id.split('--');
-        deleteBook(id).then(showBooks);
-      }
-    }
-
     // CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
       addBookForm();
@@ -75,30 +74,42 @@ const domEvents = () => {
       updateBook(bookObject).then(showBooks);
     }
 
+    // CLICK EVENT FOR DELETING A BOOK
+    if (e.target.id.includes('delete-book')) {
+      if (window.confirm('Want to delete?')) {
+        const [, id] = e.target.id.split('--');
+        deleteBook(id).then(showBooks);
+      }
+    }
+
     // ADD CLICK EVENT FOR VIEWING A BOOK
     if (e.target.id.includes('view-book-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
       viewBookDetails(firebaseKey).then(viewBook);
     }
 
-    // ADD CLICK EVENT FOR REVIEWING A BOOK
+    /*-----------------------------------------------------------------------------------*/
+
+    // ADD CLICK EVENT FOR CREATING A REVIEW
     if (e.target.id.includes('add-review-btn')) {
-      const [, firebaseKey] = e.target.id.split('--');
-      getSingleBook(firebaseKey).then((bookObj) => addReviewForm(bookObj));
+      addReviewForm();
     }
 
-    // CLICK EVENT FOR SUBMITTING FORM FOR REVIEWING A BOOK
+    // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A REVIEW
     if (e.target.id.includes('submit-review')) {
       e.preventDefault();
       const [, firebaseKey] = e.target.id.split('--');
-      const bookObject = {
+      const reviewObject = {
+        book_id: '-MTpclfzY9GLtKDsDYTs',
         headline: document.querySelector('#headline').value,
         review: document.querySelector('#review').value,
         firebaseKey
       };
 
-      updateBook(bookObject).then(showBooks);
+      createReview(reviewObject).then(showReviews);
     }
+
+    /*-----------------------------------------------------------------------------------*/
 
     // ADD CLICK EVENT FOR DELETING AN AUTHOR
     if (e.target.id.includes('delete-author')) {

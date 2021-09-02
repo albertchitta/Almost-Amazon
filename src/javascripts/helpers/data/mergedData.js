@@ -1,5 +1,6 @@
 import { deleteAuthor, getSingleAuthor } from './authorData';
 import { booksByAuthor, deleteBook, getSingleBook } from './bookData';
+import { getBookReviews } from './reviewData';
 
 // ALSO WORKS
 // const viewBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -33,8 +34,8 @@ const viewBookDetails = (firebaseKey) => (async () => {
 // VIEW AUTHOR DETAILS
 const viewAuthorDetails = async (firebaseKey) => {
   const author = await getSingleAuthor(firebaseKey);
-  const book = await booksByAuthor(firebaseKey);
-  return ({ book, ...author });
+  const books = await booksByAuthor(firebaseKey);
+  return ({ books, ...author });
 }; // Don't need '.catch'
 
 // DELETE AUTHOR BOOKS THEN AUTHOR
@@ -47,4 +48,16 @@ const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-export { viewBookDetails, viewAuthorDetails, deleteAuthorBooks };
+// VIEW BOOK REVIEWS
+const viewBookReviews = async (firebaseKey) => {
+  const book = await getSingleBook(firebaseKey);
+  const reviews = await getBookReviews(firebaseKey);
+  return ({ reviews, ...book });
+};
+
+export {
+  viewBookDetails,
+  viewAuthorDetails,
+  deleteAuthorBooks,
+  viewBookReviews
+};

@@ -25,4 +25,15 @@ const viewBook = (obj) => {
   </div>`;
 };
 
+// obj.reviews.forEach((item) => {
+//   document.querySelector('#review-container').innerHTML += `
+//     <div class="card" style="width: 18rem;">
+//       <div class="card-body">
+//         <h5 class="card-title">${item.headline}</h5>
+//         <p class="card-text">${item.review}</p>
+//       </div>
+//     </div>
+//   `;
+// });
+
 export default viewBook;
