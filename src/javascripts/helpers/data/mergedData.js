@@ -40,11 +40,11 @@ const viewAuthorDetails = async (firebaseKey) => {
 }; // Don't need '.catch'
 
 // DELETE AUTHOR BOOKS THEN AUTHOR
-const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
+const deleteAuthorBooks = (userId, authorId) => new Promise((resolve, reject) => {
   booksByAuthor(authorId).then((authorsBookArray) => {
-    const deleteBooks = authorsBookArray.map(((book) => deleteBook(book.firebaseKey)));
+    const deleteBooks = authorsBookArray.map(((book) => deleteBook(userId, book.firebaseKey)));
 
-    Promise.all(deleteBooks).then(() => resolve(deleteAuthor(authorId)));
+    Promise.all(deleteBooks).then(() => resolve(deleteAuthor(userId, authorId)));
     // Can also do 'Promise.all([...deleteBooks])'
   }).catch(reject);
 });
@@ -57,11 +57,11 @@ const viewBookReviews = async (firebaseKey) => {
 };
 
 // DELETE BOOK REVIEWS THEN BOOKS
-const deleteBookReviews = (bookId) => new Promise((resolve, reject) => {
+const deleteBookReviews = (userId, bookId) => new Promise((resolve, reject) => {
   getBookReviews(bookId).then((bookReviewsArray) => {
-    const deleteReviews = bookReviewsArray.map(((review) => deleteReview(review.firebaseKey)));
+    const deleteReviews = bookReviewsArray.map(((review) => deleteReview(userId, review.firebaseKey)));
 
-    Promise.all(deleteReviews).then(() => resolve(deleteBook(bookId)));
+    Promise.all(deleteReviews).then(() => resolve(deleteBook(userId, bookId)));
     // Can also do 'Promise.all([...deleteBooks])'
   }).catch(reject);
 });

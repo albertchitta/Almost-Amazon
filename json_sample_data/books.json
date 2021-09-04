@@ -8,7 +8,8 @@
     "title": "Fifty Shades of Chicken",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fchicken.jpg?alt=media&token=77e7cf36-4f72-4ee0-a487-dd1d366ced63",
     "sale": false,
-    "author_id": "-MTpcli73mfiIqW0lpPe"
+    "author_id": "-MTpcli73mfiIqW0lpPe",
+    "uid": "izJeJTiGtweNX5Cc2HUVD57LtnK2"
   },
   "-MTpclg-BDWqEqyNcYzx": {
     "firebaseKey": "-MTpclg-BDWqEqyNcYzx",
@@ -19,7 +20,8 @@
     "title": "Fifty Shades of Bacon",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fbacon.jpg?alt=media&token=4641983b-59a5-4d1f-8e8e-7f2114f02455",
     "sale": true,
-    "author_id": "-MTpcli9kmjpvbdr-ckb"
+    "author_id": "-MTpcli9kmjpvbdr-ckb",
+    "uid": "izJeJTiGtweNX5Cc2HUVD57LtnK2"
   },
   "-MTpclg1yedrHyxkTEvt": {
     "firebaseKey": "-MTpclg1yedrHyxkTEvt",
@@ -30,7 +32,8 @@
     "title": "Fifty Shades of Kale",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fkale.jpg?alt=media&token=cce4b2dc-4ee5-4e80-93a3-c33d3817880e",
     "sale": false,
-    "author_id": "-MTpcliA_-GtWZHpb8sf"
+    "author_id": "-MTpcliA_-GtWZHpb8sf",
+    "uid": "izJeJTiGtweNX5Cc2HUVD57LtnK2"
   },
   "-MTpclg3RLFK-14Pu-YM": {
     "firebaseKey": "-MTpclg3RLFK-14Pu-YM",
@@ -41,7 +44,8 @@
     "title": "Fifteen Shades for Grey",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fanimals.jpeg?alt=media&token=bf85ace1-db04-42c1-82d5-56ce58979721",
     "sale": false,
-    "author_id": "-MTpcliCeUeUNMpZ-Kog"
+    "author_id": "-MTpcliCeUeUNMpZ-Kog",
+    "uid": "izJeJTiGtweNX5Cc2HUVD57LtnK2"
   },
   "-MTpclg6Ax7Lg5iq3tOs": {
     "firebaseKey": "-MTpclg6Ax7Lg5iq3tOs",
@@ -52,7 +56,8 @@
     "title": "Fifty Shades of Zombie",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fzombie.jpg?alt=media&token=4e350713-95ba-4dc6-8091-c2fd5bb2bb27",
     "sale": true,
-    "author_id": "-MTpcliDmrp15A1WIE4U"
+    "author_id": "-MTpcliDmrp15A1WIE4U",
+    "uid": "123"
   },
   "-MTpclg4KKMZ4FUaEE2b": {
     "firebaseKey": "-MTpclg4KKMZ4FUaEE2b",
@@ -63,6 +68,7 @@
     "title": "Fifty Shades of Gravy",
     "image": "https://firebasestorage.googleapis.com/v0/b/almost-1564e.appspot.com/o/books%2Fgravy.jpg?alt=media&token=1cdec29d-f7d5-4100-bd09-684fe57235e4",
     "sale": false,
-    "author_id": "-MTpcliGnhDSsyvILIoJ"
+    "author_id": "-MTpcliGnhDSsyvILIoJ",
+    "uid": "123"
   }
 }

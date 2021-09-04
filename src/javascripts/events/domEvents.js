@@ -25,11 +25,11 @@ import { createReview, deleteReview } from '../helpers/data/reviewData';
 
 let bookId = '';
 
-const domEvents = () => {
+const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     // CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
-      addBookForm();
+      addBookForm(uid);
     }
 
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
@@ -43,7 +43,8 @@ const domEvents = () => {
         review: '',
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
-        author_id: document.querySelector('#author_id').value
+        author_id: document.querySelector('#author_id').value,
+        uid
       };
 
       createBook(bookObject).then((booksArray) => showBooks(booksArray));
@@ -52,7 +53,7 @@ const domEvents = () => {
     // CLICK EVENT FOR EDITING/UPDATING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
       const [, id] = e.target.id.split('--');
-      getSingleBook(id).then((bookObj) => addBookForm(bookObj));
+      getSingleBook(id).then((bookObj) => addBookForm(uid, bookObj));
     }
 
     // CLICK EVENT FOR EDITING A BOOK
@@ -68,7 +69,8 @@ const domEvents = () => {
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value,
-        firebaseKey
+        firebaseKey,
+        uid
       };
 
       updateBook(bookObject).then(showBooks);
@@ -78,7 +80,7 @@ const domEvents = () => {
     if (e.target.id.includes('delete-book')) {
       if (window.confirm('Want to delete?')) {
         const [, id] = e.target.id.split('--');
-        deleteBookReviews(id).then(showBooks);
+        deleteBookReviews(uid, id).then(showBooks);
       }
     }
 
@@ -121,7 +123,7 @@ const domEvents = () => {
     if (e.target.id.includes('delete-author')) {
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
-        deleteAuthorBooks(firebaseKey).then(showAuthors);
+        deleteAuthorBooks(uid, firebaseKey).then(showAuthors);
       }
     }
 
@@ -139,7 +141,8 @@ const domEvents = () => {
         email: document.querySelector('#email').value,
         image: document.querySelector('#image').value,
         description: document.querySelector('#description').value,
-        favorite: document.querySelector('#favorite').checked
+        favorite: document.querySelector('#favorite').checked,
+        uid
       };
 
       createAuthor(authorObject).then(showAuthors);
@@ -162,7 +165,8 @@ const domEvents = () => {
         image: document.querySelector('#image').value,
         description: document.querySelector('#description').value,
         favorite: document.querySelector('#favorite').checked,
-        firebaseKey
+        firebaseKey,
+        uid
       };
 
       updateAuthor(authorObject).then(showAuthors);
