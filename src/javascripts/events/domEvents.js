@@ -4,7 +4,6 @@ import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import {
   createBook,
-  deleteBook,
   getSingleBook,
   updateBook,
 } from '../helpers/data/bookData';
@@ -17,13 +16,14 @@ import viewBook from '../components/viewBook';
 import viewAuthor from '../components/viewAuthor';
 import {
   deleteAuthorBooks,
+  deleteBookReviews,
   viewAuthorDetails,
   viewBookDetails,
-  // viewBookReviews,
 } from '../helpers/data/mergedData';
 import addReviewForm from '../components/forms/addReviewForm';
-import { createReview } from '../helpers/data/reviewData';
-import { showReviews } from '../components/reviews';
+import { createReview, deleteReview } from '../helpers/data/reviewData';
+
+let bookId = '';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -78,14 +78,14 @@ const domEvents = () => {
     if (e.target.id.includes('delete-book')) {
       if (window.confirm('Want to delete?')) {
         const [, id] = e.target.id.split('--');
-        deleteBook(id).then(showBooks);
+        deleteBookReviews(id).then(showBooks);
       }
     }
 
     // ADD CLICK EVENT FOR VIEWING A BOOK
     if (e.target.id.includes('view-book-btn')) {
-      const [, firebaseKey] = e.target.id.split('--');
-      viewBookDetails(firebaseKey).then(viewBook);
+      [, bookId] = e.target.id.split('--');
+      viewBookDetails(bookId).then(viewBook);
     }
 
     /*-----------------------------------------------------------------------------------*/
@@ -98,15 +98,21 @@ const domEvents = () => {
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A REVIEW
     if (e.target.id.includes('submit-review')) {
       e.preventDefault();
-      const [, firebaseKey] = e.target.id.split('--');
       const reviewObject = {
-        book_id: '-MTpclfzY9GLtKDsDYTs',
+        book_id: bookId,
         headline: document.querySelector('#headline').value,
         review: document.querySelector('#review').value,
-        firebaseKey
       };
 
-      createReview(reviewObject).then(showReviews);
+      createReview(reviewObject).then(viewBookDetails(reviewObject.book_id).then(viewBook));
+    }
+
+    // CLICK EVENT FOR DELETING A REVIEW
+    if (e.target.id.includes('delete-review')) {
+      if (window.confirm('Want to delete?')) {
+        const [, firebaseKey] = e.target.id.split('--');
+        deleteReview(firebaseKey).then(viewBookDetails(bookId).then(viewBook));
+      }
     }
 
     /*-----------------------------------------------------------------------------------*/

@@ -1,6 +1,6 @@
 import { deleteAuthor, getSingleAuthor } from './authorData';
 import { booksByAuthor, deleteBook, getSingleBook } from './bookData';
-import { getBookReviews } from './reviewData';
+import { getBookReviews, deleteReview } from './reviewData';
 
 // ALSO WORKS
 // const viewBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -17,7 +17,8 @@ import { getBookReviews } from './reviewData';
 const viewBookDetails = (firebaseKey) => (async () => {
   const book = await getSingleBook(firebaseKey);
   const author = await getSingleAuthor(book.author_id);
-  return ({ author, ...book });
+  const reviews = await getBookReviews(firebaseKey);
+  return ({ reviews, author, ...book });
 })().catch(console.warn);
 
 // ALSO WORKS
@@ -55,9 +56,20 @@ const viewBookReviews = async (firebaseKey) => {
   return ({ reviews, ...book });
 };
 
+// DELETE BOOK REVIEWS THEN BOOKS
+const deleteBookReviews = (bookId) => new Promise((resolve, reject) => {
+  getBookReviews(bookId).then((bookReviewsArray) => {
+    const deleteReviews = bookReviewsArray.map(((review) => deleteReview(review.firebaseKey)));
+
+    Promise.all(deleteReviews).then(() => resolve(deleteBook(bookId)));
+    // Can also do 'Promise.all([...deleteBooks])'
+  }).catch(reject);
+});
+
 export {
   viewBookDetails,
   viewAuthorDetails,
   deleteAuthorBooks,
-  viewBookReviews
+  viewBookReviews,
+  deleteBookReviews
 };

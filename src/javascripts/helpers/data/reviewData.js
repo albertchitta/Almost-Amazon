@@ -1,10 +1,15 @@
 // API CALLS FOR AUTHORS
 import axios from 'axios';
 import firebaseConfig from '../../../api/apiKeys';
-import { showReviews } from '../../components/reviews';
-// import viewBook from '../../components/viewBook';
 
 const dbUrl = firebaseConfig.databaseURL;
+
+// GET REVIEWS
+const getReviews = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/reviews.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
 
 // CREATE REVIEW
 const createReview = (reviewObj) => new Promise((resolve, reject) => {
@@ -13,16 +18,9 @@ const createReview = (reviewObj) => new Promise((resolve, reject) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/reviews/${response.data.name}.json`, body)
         .then(() => {
-          showReviews().then(resolve);
+          getReviews().then(resolve);
         });
     }).catch((error) => reject(error));
-});
-
-// GET REVIEWS
-const getReviews = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/reviews.json`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
 });
 
 // GET SINGLE REVIEW
@@ -39,9 +37,19 @@ const getBookReviews = (bookId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// DELETE REVIEW
+const deleteReview = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/reviews/${firebaseKey}.json`)
+    .then(() => {
+      getReviews().then(resolve);
+    })
+    .catch(reject);
+});
+
 export {
   getReviews,
   getSingleReview,
   createReview,
-  getBookReviews
+  getBookReviews,
+  deleteReview
 };

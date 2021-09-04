@@ -1,15 +1,9 @@
-import clearDom from '../helpers/data/clearDom';
-
 const showReviews = (array) => {
-  clearDom();
-
-  document.querySelector('#add-review-btn').innerHTML = '<button class="btn btn-success btn-lg mb-4" id="add-book-btn">Add a customer review</button>';
-
   array.forEach((item) => {
     document.querySelector('#review-container').innerHTML += `
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">${item.headline}</h5>
+            <h5 class="card-title">${item.headline}<i class="fas fa-times-circle btn btn-danger" id="delete-review--${item.firebaseKey}"></i></h5>
             <p class="card-text">${item.review}</p>
           </div>
         </div>

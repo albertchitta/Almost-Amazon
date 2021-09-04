@@ -1,4 +1,5 @@
 import clearDom from '../helpers/data/clearDom';
+import { showReviews } from './reviews';
 
 const viewBook = (obj) => {
   clearDom();
@@ -20,20 +21,12 @@ const viewBook = (obj) => {
       <p>${obj.description || 'Please add a description for this book.'}</p>
       <hr>
       <p>PRICE: ${obj.sale ? `$${obj.price} <span class="badge bg-info sale-badge"><i class="fa fa-bell" aria-hidden="true"></i> Sale</span>` : `$${obj.price}`}</p>
-      <h5 class="review-title">Customer Reviews</h5>    
+      <h5 class="review-title">Customer Reviews</h5>
+      <div id="review-container"></div>
     </div>
   </div>`;
-};
 
-// obj.reviews.forEach((item) => {
-//   document.querySelector('#review-container').innerHTML += `
-//     <div class="card" style="width: 18rem;">
-//       <div class="card-body">
-//         <h5 class="card-title">${item.headline}</h5>
-//         <p class="card-text">${item.review}</p>
-//       </div>
-//     </div>
-//   `;
-// });
+  showReviews(obj.reviews);
+};
 
 export default viewBook;
